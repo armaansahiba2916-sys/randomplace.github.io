@@ -4,6 +4,9 @@ body {
   margin: 24px auto;
   padding: 0 16px;
 }
+button, input, select, textarea, .btn {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
 header { display:flex; justify-content:space-between; align-items:center; gap:12px; }
 a { text-decoration: none; }
 nav { display:flex; gap:10px; flex-wrap: wrap; margin: 16px 0; }
