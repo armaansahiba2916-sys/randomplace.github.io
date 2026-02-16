@@ -29,6 +29,14 @@
     <footer id="comicMeta"></footer>
   </div>
 
+  <nav class="bottom-nav">
+    <button id="firstBtnBottom">First</button>
+    <button id="prevBtnBottom">Prev</button>
+    <button id="nextBtnBottom">Next</button>
+    <button id="latestBtnBottom">Latest</button>
+    <button id="randomBtnBottom">Random</button>
+  </nav>
+  
   <script src="data.js"></script>
   <script>
     const qs = new URLSearchParams(location.search);
@@ -70,6 +78,17 @@
     };
 
     render();
+
+    document.getElementById("firstBtnBottom").onclick = () => go(minId);
+document.getElementById("prevBtnBottom").onclick  = () => go(currentId - 1);
+document.getElementById("nextBtnBottom").onclick  = () => go(currentId + 1);
+document.getElementById("latestBtnBottom").onclick= () => go(maxId);
+
+document.getElementById("randomBtnBottom").onclick = () => {
+  const randomId = ids[Math.floor(Math.random() * ids.length)];
+  go(randomId);
+};
+
   </script>
 </body>
 </html>
