@@ -65,29 +65,38 @@
       document.getElementById("prevBtn").disabled  = currentId === minId;
       document.getElementById("nextBtn").disabled  = currentId === maxId;
       document.getElementById("latestBtn").disabled= currentId === maxId;
+      document.getElementById("firstBtnBottom").disabled = currentId === minId;
+      document.getElementById("prevBtnBottom").disabled  = currentId === minId;
+      document.getElementById("nextBtnBottom").disabled  = currentId === maxId;
+      document.getElementById("latestBtnBottom").disabled= currentId === maxId;
+
     }
 
     document.getElementById("firstBtn").onclick = () => go(minId);
     document.getElementById("prevBtn").onclick  = () => go(currentId - 1);
-    document.getElementById("nextBtn").onclick  = () => go(currentId + 1);
-    document.getElementById("latestBtn").onclick= () => go(maxId);
-
+    
     document.getElementById("randomBtn").onclick = () => {
       const randomId = ids[Math.floor(Math.random() * ids.length)];
       go(randomId);
+      
+    document.getElementById("nextBtn").onclick  = () => go(currentId + 1);
+    document.getElementById("latestBtn").onclick= () => go(maxId);
+
     };
 
     render();
 
     // Bottom buttons click handlers
-document.getElementById("firstBtnBottom").onclick = () => go(minId);
-document.getElementById("prevBtnBottom").onclick  = () => go(currentId - 1);
-document.getElementById("nextBtnBottom").onclick  = () => go(currentId + 1);
-document.getElementById("latestBtnBottom").onclick= () => go(maxId);
+    document.getElementById("firstBtnBottom").onclick = () => go(minId);
+    document.getElementById("prevBtnBottom").onclick  = () => go(currentId - 1);
+    
+    document.getElementById("randomBtnBottom").onclick = () => {
+      const randomId = ids[Math.floor(Math.random() * ids.length)];
+      go(randomId);
+      
+    document.getElementById("nextBtnBottom").onclick  = () => go(currentId + 1);
+    document.getElementById("latestBtnBottom").onclick= () => go(maxId);
 
-document.getElementById("randomBtnBottom").onclick = () => {
-  const randomId = ids[Math.floor(Math.random() * ids.length)];
-  go(randomId);
 };
 
   </script>
