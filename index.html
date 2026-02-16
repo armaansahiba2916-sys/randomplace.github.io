@@ -11,14 +11,15 @@
   <header>
     <h1><a href="index.html">Random stuff</a></h1>
     <nav>
-      <a class="btn" href="Archive.html">Archive</a>
-      <button id="randomBtn">Random</button>
+      <a class="btn" href="archive.html">Archive</a>
     </nav>
   </header>
 
+  <!-- TOP NAV (centered by your CSS nav { justify-content:center; }) -->
   <nav>
     <button id="firstBtn">First</button>
     <button id="prevBtn">Prev</button>
+    <button id="randomBtn">Random</button>
     <button id="nextBtn">Next</button>
     <button id="latestBtn">Latest</button>
   </nav>
@@ -29,14 +30,15 @@
     <footer id="comicMeta"></footer>
   </div>
 
+  <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
     <button id="firstBtnBottom">First</button>
     <button id="prevBtnBottom">Prev</button>
+    <button id="randomBtnBottom">Random</button>
     <button id="nextBtnBottom">Next</button>
     <button id="latestBtnBottom">Latest</button>
-    <button id="randomBtnBottom">Random</button>
   </nav>
-  
+
   <script src="data.js"></script>
   <script>
     const qs = new URLSearchParams(location.search);
@@ -49,57 +51,58 @@
 
     if (!currentId || !byId(currentId)) currentId = maxId;
 
-    function go(id){ location.href = "index.html?id=" + id; }
+    function go(id){
+      location.href = "index.html?id=" + id;
+    }
 
     function render(){
       const c = byId(currentId);
       document.title = c.title + " — Random Stuff";
       document.getElementById("comicTitle").textContent = c.title;
+
       const img = document.getElementById("comicImg");
       img.src = c.img;
       img.alt = c.alt;
-      img.title = c.hover; // hover text!
+      img.title = c.hover; // hover text
+
       document.getElementById("comicMeta").textContent = `#${c.id} • ${c.date}`;
 
-      document.getElementById("firstBtn").disabled = currentId === minId;
-      document.getElementById("prevBtn").disabled  = currentId === minId;
-      document.getElementById("nextBtn").disabled  = currentId === maxId;
-      document.getElementById("latestBtn").disabled= currentId === maxId;
-      document.getElementById("firstBtnBottom").disabled = currentId === minId;
-      document.getElementById("prevBtnBottom").disabled  = currentId === minId;
-      document.getElementById("nextBtnBottom").disabled  = currentId === maxId;
-      document.getElementById("latestBtnBottom").disabled= currentId === maxId;
+      // Disable TOP buttons
+      document.getElementById("firstBtn").disabled  = currentId === minId;
+      document.getElementById("prevBtn").disabled   = currentId === minId;
+      document.getElementById("nextBtn").disabled   = currentId === maxId;
+      document.getElementById("latestBtn").disabled = currentId === maxId;
 
+      // Disable BOTTOM buttons (so they grey out too)
+      document.getElementById("firstBtnBottom").disabled  = currentId === minId;
+      document.getElementById("prevBtnBottom").disabled   = currentId === minId;
+      document.getElementById("nextBtnBottom").disabled   = currentId === maxId;
+      document.getElementById("latestBtnBottom").disabled = currentId === maxId;
     }
 
-    document.getElementById("firstBtn").onclick = () => go(minId);
-    document.getElementById("prevBtn").onclick  = () => go(currentId - 1);
-    
+    // TOP click handlers
+    document.getElementById("firstBtn").onclick  = () => go(minId);
+    document.getElementById("prevBtn").onclick   = () => go(currentId - 1);
+    document.getElementById("nextBtn").onclick   = () => go(currentId + 1);
+    document.getElementById("latestBtn").onclick = () => go(maxId);
+
     document.getElementById("randomBtn").onclick = () => {
       const randomId = ids[Math.floor(Math.random() * ids.length)];
       go(randomId);
-      
-    document.getElementById("nextBtn").onclick  = () => go(currentId + 1);
-    document.getElementById("latestBtn").onclick= () => go(maxId);
-
     };
 
-    render();
+    // BOTTOM click handlers
+    document.getElementById("firstBtnBottom").onclick  = () => go(minId);
+    document.getElementById("prevBtnBottom").onclick   = () => go(currentId - 1);
+    document.getElementById("nextBtnBottom").onclick   = () => go(currentId + 1);
+    document.getElementById("latestBtnBottom").onclick = () => go(maxId);
 
-    // Bottom buttons click handlers
-    document.getElementById("firstBtnBottom").onclick = () => go(minId);
-    document.getElementById("prevBtnBottom").onclick  = () => go(currentId - 1);
-    
     document.getElementById("randomBtnBottom").onclick = () => {
       const randomId = ids[Math.floor(Math.random() * ids.length)];
       go(randomId);
-      
-    document.getElementById("nextBtnBottom").onclick  = () => go(currentId + 1);
-    document.getElementById("latestBtnBottom").onclick= () => go(maxId);
+    };
 
-};
-
+    render();
   </script>
 </body>
 </html>
-
