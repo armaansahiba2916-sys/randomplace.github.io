@@ -1,4 +1,9 @@
-body { font-family: system-ui, Arial; max-width: 900px; margin: 24px auto; padding: 0 16px; }
+body {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
 header { display:flex; justify-content:space-between; align-items:center; gap:12px; }
 a { text-decoration: none; }
 nav { display:flex; gap:10px; flex-wrap: wrap; margin: 16px 0; }
