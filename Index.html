@@ -1,1 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Comic</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="Index.html">Random stuff</a></h1>
+    <nav>
+      <a class="btn" href="Archive.html">Archive</a>
+      <button id="randomBtn">Random</button>
+    </nav>
+  </header>
+
+  <nav>
+    <button id="firstBtn">First</button>
+    <button id="prevBtn">Prev</button>
+    <button id="nextBtn">Next</button>
+    <button id="latestBtn">Latest</button>
+  </nav>
+
+  <div id="comicWrap">
+    <div id="comicTitle"></div>
+    <img id="comicImg" src="" alt="" title="" />
+    <footer id="comicMeta"></footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    const qs = new URLSearchParams(location.search);
+    let currentId = parseInt(qs.get("id") || "", 10);
+
+    const byId = (id) => COMICS.find(c => c.id === id);
+    const ids = COMICS.map(c => c.id);
+    const minId = Math.min(...ids);
+    const maxId = Math.max(...ids);
+
+    if (!currentId || !byId(currentId)) currentId = maxId;
+
+    function go(id){ location.href = "Index.html?id=" + id; }
+
+    function render(){
+      const c = byId(currentId);
+      document.title = c.title + " — Random Stuff";
+      document.getElementById("comicTitle").textContent = c.title;
+      const img = document.getElementById("comicImg");
+      img.src = c.img;
+      img.alt = c.alt;
+      img.title = c.hover; // hover text!
+      document.getElementById("comicMeta").textContent = `#${c.id} • ${c.date}`;
+
+      document.getElementById("firstBtn").disabled = currentId === minId;
+      document.getElementById("prevBtn").disabled  = currentId === minId;
+      document.getElementById("nextBtn").disabled  = currentId === maxId;
+      document.getElementById("latestBtn").disabled= currentId === maxId;
+    }
+
+    document.getElementById("firstBtn").onclick = () => go(minId);
+    document.getElementById("prevBtn").onclick  = () => go(currentId - 1);
+    document.getElementById("nextBtn").onclick  = () => go(currentId + 1);
+    document.getElementById("latestBtn").onclick= () => go(maxId);
+
+    document.getElementById("randomBtn").onclick = () => {
+      const randomId = ids[Math.floor(Math.random() * ids.length)];
+      go(randomId);
+    };
+
+    render();
+  </script>
+</body>
+</html>
 
