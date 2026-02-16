@@ -79,7 +79,8 @@
 
     render();
 
-    document.getElementById("firstBtnBottom").onclick = () => go(minId);
+    // Bottom buttons click handlers
+document.getElementById("firstBtnBottom").onclick = () => go(minId);
 document.getElementById("prevBtnBottom").onclick  = () => go(currentId - 1);
 document.getElementById("nextBtnBottom").onclick  = () => go(currentId + 1);
 document.getElementById("latestBtnBottom").onclick= () => go(maxId);
